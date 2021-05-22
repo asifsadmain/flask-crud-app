@@ -2,10 +2,10 @@
 FROM python:3.7-slim
 
 # Install the Flask package via pip
-RUN pip install flask==1.0.2 flask_mysqldb
+RUN pip install flask==1.0.2 libmysqlclient-dev flask-mysqldb
 
 # Copy the source code to app folder
-COPY * /app/
+COPY ./app.py /app/
 
 # Change the working directory
 WORKDIR /app/

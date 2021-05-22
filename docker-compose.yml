@@ -1,8 +1,26 @@
 version: "3.7"
 services:
-  cb-backend:
-    build: ./server/
-    ports:
-      - "5000:5000"
-    volumes:
-      - */:/server/
+    # frontend:
+    #     build: ./templates
+    #     depends_on: 
+    #         - backend
+    #     ports: 
+    #         - "3000:3000"
+    #     volumes: 
+    #         - ./templates/:/client/
+    backend:
+        build: ./app.py
+        ports:
+        - "5000:5000"
+        volumes:
+        - ./app.py:/server/
+        depends_on: 
+            - database
+    database:
+        platform: linux/x86_64
+        image: mysql:5.6
+        ports: 
+            - "3306:3306"
+        volumes: 
+            - ./database/init-scripts:/docker-entrypoint-initdb.d
+    
